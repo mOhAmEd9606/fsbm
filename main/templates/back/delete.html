@@ -1,0 +1,28 @@
+{% extends 'back/master.html' %}
+{% load static %}
+{%block head%}<title>Add coure |fsbmAdmin</title>{% endblock%}
+{%block container%}
+<br>
+<div class="row">
+	<div class="col-md-6">
+		<div class="card card-body">
+
+
+			<p>Are you sure you want to delete "{{item}}"?</p>
+			<h6>
+				<small>ID : {{item.pk}}</small><br>
+				{% if item.module%}<small>Module : {{item.module}}</small><br>{% endif%}
+				{% if item.semmester%}<small>Semmester : {{item.semmester}}</small><br>{% endif%}
+			</h6>
+			<form action="{% url 'filierDel' item.id  %}" method="POST">
+				
+				{% csrf_token %}
+				<a class="btn btn-warning" href="{% url 'filerList' %}">Cancel</a>
+
+				<input class="btn btn-danger" type="submit" name="Confirm">
+			</form>
+		</div>
+	</div>
+</div>
+
+{%endblock%}

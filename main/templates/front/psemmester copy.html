@@ -1,0 +1,105 @@
+{% extends 'front/base.html'%}{% load static %} {%block titleblock%}
+<title>Fsbmcours |{{semmestername}}</title>
+<link href="{%static 'front/css/ArticleDetail.css'%}" rel="stylesheet">
+
+{%endblock%}
+{%block navbar%}
+
+{% endblock %}
+{%block containerblock%}
+<div class="container">
+
+    <div class="row" style="margin-top: 92px !important;">
+        <div class="col-lg-8">
+      {%for fil in Filier%}
+        <div class="blog-left-sidebar">
+          <div class="row justify-content-sm-center" style="margin-top: 0px; margin-bottom: 2px;">
+            <div class="col-lg section-title">
+                    <span class="sub-title mb-2 d-block" style="font-size: 20px;">Departement {{fil.name}}</span>
+                    <h2 class="title text-primary  text-uppercase" style="margin-bottom: 1px;">{{semmester}}</h2>
+
+            </div>
+            <div class="col-xl-12">
+                    {% if fil.count == 0 and fil.countTd == 0%}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      <strong>HI!</strong> {{fil.name}} has No data available <br>
+                          Coming Son <br>
+                        Merci Pour Votre Visite
+
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    {%endif%}
+            </div>
+              <!--les module-->
+
+                  <div class="col-sm-12">
+                    <div class="row justify-content-sm-center">
+                      {% for i in Modules %}
+
+                          <div class="col-md-6 col-lg-6 mb-4 mb-lg-4">
+                              <a href="{% url 'physiqueModulePage' sem=i.semmesterUrl  modl=i.nameUrl %}">
+                              <div class="service h-100">
+                                  <h3>{{i.name}}</h3>
+                                  <p >{{i.filier}}</p>
+                              </div>
+                              </a>
+                          </div>
+                     {% endfor%}
+                  </div>
+                  </div>
+          </div>
+            </div>
+            {%endfor%}
+        </div>
+
+
+        <!-- sidebar -->
+        <div class="col-sm-8 col-md-5 col-lg-4 col-xl-3 offset-xl-1 offset-0 pl-xl-0  ">
+            <div class="sidebar jm-sticky-top">
+                <!-- widget -->
+                {% include 'front/search.html'%}
+
+                <!-- Recent COURE && Traveux Dirigés && Traveux Pratique -->
+
+                <div class="widget">
+                    <h5 class="widget-title">Pop Module</h5>
+                    {%for popModl in ModulePop%}
+                    {% if popModl.filier == "Physique"%}
+                            {% if popModl.show != 0%}
+                    <div class="recent-post-widget">
+                        <!-- recent post -->
+
+                        <div class="rp-item">
+                            <div class="rp-thumb ">
+                                {%if popModl.filier == 'Physique'%}
+                                <img src="{% static 'front/img/smp.png'%}" alt="" class="img-fluid"> {%elif popModl.filier == 'Chimie'%}
+                                <img src="{% static 'front/img/smc.png'%}" alt="" class="img-fluid"> {%endif%}
+                            </div>
+                            <div class="rp-content">
+                                <h6>{{popModl.name}} <br>
+                                    <smail style="color:red;">
+                                      <i class="fa fa-eye"></i> {{ popModl.show}} Views 
+                                    </small>
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                    {%endif%}
+                    {%endif%}
+                    {%endfor%}
+                </div>
+
+
+                <!-- Add -->
+                <div class="widget">
+                    <img src="img/ad.jpg" alt="">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
+

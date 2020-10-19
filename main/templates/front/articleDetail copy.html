@@ -1,0 +1,159 @@
+{% extends 'front/base.html'%}{% load static %} {%block titleblock%} {% for Art in Articles%}
+<title>Fsbmcours | {{Art.title}} </title>{% endfor%}
+<link href="{%static 'front/css/ArticleDetail.css'%}" rel="stylesheet"> {%endblock%} {%block containerblock%}
+
+<!-- Breadcrumb section -->
+<div class="site-breadcrumb" style="margin-top: 40px;">
+    <div class="container">
+        <a href="/"><i class="fa fa-home"></i> Home</a> <i class="fa fa-angle-right"></i> {%for Art in articles%}
+        <a href="/home/Actualités/"> {{Art.cat}}</a> <i class="fa fa-angle-right"></i> <span id="short">{{Art.name}}</span>{%endfor%}
+    </div>
+</div>
+<!-- Breadcrumb section end -->
+
+<!-- Blog page section  -->
+<section class="blog-page-section spad pt-0">
+    <div class="container">
+        <div class="row">
+            {%for Art in articles%}
+            <div class="col-md-8">
+                <div class="post-item post-details">
+                    <img src="{{Art.pic.url}}" class="post-thumb-full" alt="">
+                    <div class="post-content">
+                        <h3>{{Art.name}}</h3>
+                        <div class="post-meta">
+                            <span><i class="fa fa-calendar-o"></i> {{Art.date}}</span>
+                            <span><i class="fa fa-user"></i> {{Art.cat}}</span>
+                        </div>
+                        <p>{{Art.discripton}}</p>
+                        <p> {{Art.artbody}}</p>
+                        {%if Art.info != "-"%}
+                        <blockquote>“{{Art.info}}”</blockquote>
+                        {%endif%}
+                        <a href="" target="_blank" rel="noopener noreferrer">
+                            <div class="tag"><i class="fa fa-tag"></i> {{Art.cat}}</div>
+                        </a>
+                    </div>
+                    <!-- <div class="post-author">
+                        <div class="pa-thumb set-bg" data-setbg="img/blog/author.jpg"></div>
+                        <div class="pa-content">
+                            <h4>Written by Owen Wilson</h4>
+                            <p>Mauris lectus justo, tempor ac auctor at, congue id erat. Pellentesque et massa odio. Fusce vel fermentum tortor, nec gravida ligula. Vivamus at malesuada tortor, in posuere ex. Phasellus pretium turpis non ipsum vestibulum,
+                                a finibus quam rhoncus.</p>
+                        </div>
+                    </div> -->
+                    <!-- <div class="comment-warp">
+                        <h4 class="comment-title">3 Comments</h4>
+                        <ul class="comment-list">
+                            <li>
+                                <div class="comment">
+                                    <div class="comment-avator set-bg" data-setbg="img/blog/comment/1.jpg"></div>
+                                    <div class="comment-content">
+                                        <span class="c-date">24 Mar 2018</span>
+                                        <h5>Kelly Richardson</h5>
+                                        <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam.</p>
+                                        <a href="" class="c-btn">Like</a>
+                                        <a href="" class="c-btn">Reply</a>
+                                    </div>
+                                </div>
+                                <ul class="replay-comment-list">
+                                    <li>
+                                        <div class="comment">
+                                            <div class="comment-avator set-bg" data-setbg="img/blog/comment/2.jpg"></div>
+                                            <div class="comment-content">
+                                                <span class="c-date">24 Mar 2018</span>
+                                                <h5>Gordon Browns</h5>
+                                                <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore.</p>
+                                                <a href="" class="c-btn">Like</a>
+                                                <a href="" class="c-btn">Reply</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="comment">
+                                    <div class="comment-avator set-bg" data-setbg="img/blog/comment/3.jpg"></div>
+                                    <div class="comment-content">
+                                        <span class="c-date">24 Mar 2018</span>
+                                        <h5>Scott Langton</h5>
+                                        <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam.</p>
+                                        <a href="" class="c-btn">Like</a>
+                                        <a href="" class="c-btn">Reply</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="comment-form-warp">
+                            <h4 class="comment-title">Leave Your Comment</h4>
+                            <form class="comment-form">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="Your Name">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="email" placeholder="Your Email">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <textarea placeholder="Your Message"></textarea>
+                                        <button class="site-btn">SEND COMMENT</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            {%endfor%}
+            <!-- sidebar -->
+            <div class="col-sm-8 col-md-5 col-lg-4 col-xl-3 offset-xl-1 offset-0 pl-xl-0 sidebar jm-sticky-top">
+              
+                <!-- widget -->
+                <div class="widget">
+                    <h5 class="widget-title">Recent News</h5>
+                    <div class="recent-post-widget">
+                        <!-- recent post -->
+                        {%for PopArt in ArticlesRecent%}
+                        <div class="rp-item">
+                            <div class="rp-thumb ">
+                                <img src="{{PopArt.picurl}}" alt="" class="img-fluid">
+                            </div>
+                            <div class="rp-content">
+                                <h6>{{PopArt.title}}</h6>
+                                <p><i class="fa fa-clock-o"></i> {{PopArt.time}}, {{PopArt.date}}</p>
+                            </div>
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
+                <!-- widget -->
+                <div class="widget">
+                    <h4 class="widget-title">Tags</h4>
+                    <div class="tags">
+                        {% for cat in Catagury%}
+                        <a href="#">{{cat.name}}</a> {%endfor%}
+                        <!-- <a href="#">BUSINESS</a>
+                        <a href="#">PROJECTS</a>
+                        <a href="#">GOOGLE ADWORDS</a>
+                        <a href="#">SQL DATABASE</a>
+                        <a href="#">MARKETING</a>
+                        <a href="#">DESIGN</a> -->
+                    </div>
+                </div>
+
+                <!-- widget -->
+                <div class="widget">
+                    <img src="img/ad.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Blog page section end -->
+{%endblock%} {%block script%}
+<script>
+    var id = '#short'
+    const trunc = document.querySelector(id);
+    trunc.innerText = trunc.innerText.substring(0, 120) + '...';
+</script>
+{%endblock%}

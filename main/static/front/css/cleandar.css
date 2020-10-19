@@ -1,0 +1,43 @@
+.widget .calendar{
+    line-height: 25px;
+    padding: 8px 0px;
+    margin-bottom: 30px;
+
+}
+.calendar{
+    position: relative;
+    width: 200px;
+    background: #fff;
+    text-align: center;
+    border-radius: 8px;
+    overflow: hidden;
+    -webkit-box-reflect:below 1px linear-gradient(transparent,transparent,#0004);
+}
+.calendar #monthName{
+    position: relative;
+    line-height: 29px;
+    padding: 5px 10px;
+    background: #ff6331;
+    color: rgb(14, 13, 13);
+    font-size: 30px;
+    font-weight: 700;
+}
+.calendar #dayName{
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 300;
+    color: rgb(0, 0, 0);
+}
+.calendar #dayNamber{
+    margin-top: 20px;
+    line-height: 1em;
+    font-size: 80px;
+    font-weight: 700px;
+    color: black;
+}
+.calendar #year {
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 500;
+    color: rgb(22, 21, 21);
+}

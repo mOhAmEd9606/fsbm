@@ -1,0 +1,262 @@
+{% extends 'front/base.html'%}{% load static %} {%block titleblock%}
+<title>Fsbmcours | physique</title>
+<link href="{%static 'front/css/ArticleDetail.css'%}" rel="stylesheet">
+<style>
+  .pagination{
+  padding: 30px 0;
+  text-align: center;
+}
+
+.pagination ul{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.pagination a{
+  display: inline-block;
+  padding: 10px 18px;
+  color: #222;
+}
+
+/* ONE */
+
+.p9 a{
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0;
+  text-align: center;
+  margin: auto 5px;
+}
+
+.p9 a.is-active{
+  border: 3px solid #2ecc71;
+  border-radius: 100%;
+}
+
+</style>
+
+{%endblock%}
+{%block navbar%}
+<li class="drop-down"><a href="#">Etudiant</a>
+  <ul>
+  {% for i in FilierNb%}
+    <li class="drop-down"><a href="/{{i.name}}">{{i.name}}</a>
+      <ul>
+        {% for semmester in ParcoureNb%}
+          {% if semmester.filier == i.name%}
+            <li><a href="/{{semmester.filier}}/{{semmester.semmester}}{% if semmester.name != 'none'%}-{{semmester.name}}{%endif%}">{{semmester.semmester}} {% if semmester.name != 'none'%}{{semmester.name}}{%endif%}</a></li>
+          {%endif%}
+        {%endfor%}
+      </ul>
+    </li>
+    {% endfor %}
+  </ul>
+</li>        
+{% endblock %}
+{%block containerblock%}
+<div class="container">
+
+    <div class="row" style="margin-top: 92px !important;">
+        <div class="col-lg-8">
+      {%for fil in Filier%}
+        <div class="blog-left-sidebar">
+          <div class="row justify-content-sm-center" style="margin-top: 0px; margin-bottom: 2px;">   
+            <div class="col-lg section-title">
+                    <span class="sub-title mb-2 d-block" style="font-size: 20px;">Search For : {{word}}?</span>
+            </div>
+            <div class="col-xl-12">
+                    {% if fil.count == 0 and fil.countTd == 0%}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      <strong>HI!</strong> {{fil.name}} has No data available <br>
+                          Coming Son <br>
+                        Merci Pour Votre Visite 
+                       
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    {%endif%}
+            </div>
+              <!--les module-->
+                
+                  <div class="col-sm-12">
+                    <div class="row justify-content-sm-center">
+                    
+                      {% for i in Mod %}
+                        <div class="col-md-6 col-lg-6 mb-4 mb-lg-4">
+                              <a href="{% url 'physiqueModulePage' fil=i.filier modl=i.name sem=i.semmester%}">
+                              <div class="service h-100">
+                                  <h3>{{i.name}}</h3>
+                                  <p >{{i.filier}} |{{i.semmester}}{% if i.parcoure != 'none' %}-{{i.parcoure}}{%endif%} </p>
+                              </div>     
+                              </a>
+                          </div> 
+                     {% endfor%} 
+                  </div>
+                  </div>
+                </div>
+            </div>
+            {%endfor%}page {{Mod.number}} from {{Mod.paginator.num_pages}}
+            <div class="pagination p9">
+              <ul>
+                {% for i in Mod.paginator.page_range %}
+                  {% if Mod.number == i %}
+                <a class="is-active" href="#" onclick="return false"><li>{{i}}</li></a>
+                  {% else %}
+                <a href="?page={{i}}"><li>{{i}}</li></a>
+                  {%endif%}
+                {%endfor%}
+              </ul>
+            </div>
+        </div>
+        <!-- sidebar -->
+        <div class="col-sm-8 col-md-5 col-lg-4 col-xl-3 offset-xl-1 offset-0 pl-xl-0  ">
+            <div class="sidebar jm-sticky-top">
+                <!-- widget -->
+                {% include 'front/search.html'%}
+
+                <!-- Recent COURE && Traveux Dirigés && Traveux Pratique -->
+
+                <div class="widget">
+                    <h5 class="widget-title">Pop Module</h5>
+                    {%for popModl in ModulePop%}
+                    {% if popModl.filier == "Physique"%}
+                            {% if popModl.show != 0%}
+                    <div class="recent-post-widget">
+                        <!-- recent post -->
+
+                        <div class="rp-item">
+                            <div class="rp-thumb ">
+                                {%if popModl.filier == 'Physique'%}
+                                <img src="{% static 'front/img/smp.png'%}" alt="" class="img-fluid"> {%elif popModl.filier == 'Chimie'%}
+                                <img src="{% static 'front/img/smc.png'%}" alt="" class="img-fluid"> {%endif%}
+                            </div>
+                            <div class="rp-content">
+                                <h6>{{popModl.name}} <br>
+                                    <smail style="color:red;">{{popModl.show}} Views</small>
+                                </h6>
+                                <p><i class="fa fa-clock-o"></i>{{popModl.date}}, {{popModl.time}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {%endif%}
+                    {%endif%}
+                    {%endfor%}
+                </div>
+
+
+                <!-- Add -->
+                <div class="widget">
+                    <img src="img/ad.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
+
+
+
+<div class="container">
+  <div class="row" style="margin-top: 27px !important;">
+    <div class="col-lg-8">
+      {%for fil in Filier%}
+        <div class="blog-left-sidebar">
+          <div class="row justify-content-sm-center">   
+                  <div class="col-lg section-title">
+                          <span class="sub-title mb-2 d-block" style="font-size: 20px;">Departement {{fil.name}}</span>
+                          <h2 class="title text-primary  text-uppercase" style="margin-bottom: 1px;">{{Parcouree}}</h2>
+                          
+                  </div>
+                  <div class="col-xl-12">
+                          {% if fil.count == 0 and fil.countTd == 0%}
+                          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>HI!</strong> {{fil.name}} has No data available <br>
+                                Coming Son <br>
+                              Merci Pour Votre Visite 
+                            
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          {%endif%}
+                  </div>
+                    <!--les module-->
+                  <div class="col-sm-12">
+                    <div class="row justify-content-sm-center">
+                      {% for i in Module %}
+                        {% if i.parcoure != "none" and i.parcoure == Parcouree %}
+                          <div class="col-md-6 col-lg-6 mb-4 mb-lg-4">
+                              <a href="{% url 'physiqueModulePage' fil=i.filier modl=i.name sem=i.semmester%}">
+                              <div class="service h-100">
+                                  <h3>{{i.name}}</h3>
+                                  <p >{{i.filier}} |{{i.parcoure}}</p>
+                              </div>     
+                              </a>
+                          </div>  
+                          {% elif i.parcoure == "none" %}
+                          <div class="col-md-6 col-lg-6 mb-4 mb-lg-4">
+                              <a href="{% url 'physiqueModulePage'  fil=i.filier modl=i.name sem=i.semmester%}">
+                              <div class="service h-100">
+                                  <h3>{{i.name}}</h3>
+                                  <p >{{i.filier}}
+                                    {%if i.parcoure != "none"%} | {{i.parcoure}} {%endif%}
+
+                                  </p>
+                              </div>     
+                              </a>
+                          </div>  
+                          {%endif%}
+                     {% endfor%} 
+                  </div>
+                  </div>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+       <!-- sidebar -->
+          <div class="col-sm-8 col-md-5 col-lg-4 col-xl-3 offset-xl-1 offset-0 pl-xl-0  ">
+            <div class="sidebar jm-sticky-top">
+                  <!-- widget -->
+                      <div class="widget">
+                          <form class="search-widget">
+                              <input type="text" placeholder="Search...">
+                              <button><i class="fa fa-search"></i></button>
+                          </form>
+            </div>
+              <!-- Recent COURE && Traveux Dirigés && Traveux Pratique -->
+            
+                      <div class="widget">
+                          <h5 class="widget-title">Recent COURE && Traveux Dirigés && Traveux Pratique</h5>
+                         <div class="recent-post-widget">
+                <!-- recent post -->
+                        {% for popModl in ModulePop %}
+                        {% if popModl.semmester == SEmmester%}
+                        {% if popModl.filier == "Physique"%}
+                        {% if popModl.show != 0%}
+                          <a href="">
+                            <div class="rp-item">
+                              <div class="rp-thumb ">
+                                  <img src="{% static 'front/img/smp.png'%}" alt="" class="img-fluid">
+                              </div>
+                                <div class="rp-content">
+                                  <h6>{{popModl.name}}</h6>
+                                  <h6>{{popModl.show}} Views</h6>
+                                  <p><i class="fa fa-clock-o"></i> {{ popModl.date}}, {{popModl.time}}</p>
+                              </div>
+                            </div>
+                          </a>
+                         {% endif %}{% endif %}{% endif %}{% endfor %}
+                          </div>
+                      </div>
+                      <!-- Add -->
+                      <div class="widget">
+                          <img src="img/ad.jpg" alt="">
+                      </div>
+            </div>
+            </div>
+    </div>
+
+    </div>

@@ -1,0 +1,21 @@
+<div class="container">
+    <section class=" newsletter-section">
+
+        <div class="row">
+            <div class="col-md-5 col-lg-7">
+                <div class="section-title mb-md-0">
+                    <h3>NEWSLETTER</h3>
+                    <p>Subscribe and get the latest news and useful tips, advice and best offer.</p>
+                </div>
+            </div>
+            <div class="col-md-7 col-lg-5">
+                <form class="newsletter" action="{% url 'news_letter' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="text" id="txt" name="txt" placeholder="Enter your email Or phone Number">
+                    <button class="site-btn" type="submit">SUBSCRIBE</button>
+                </form>
+            </div>
+        </div>
+
+    </section>
+</div>

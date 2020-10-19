@@ -1,0 +1,111 @@
+{% extends 'front/base.html'%}{% load static %} {%block titleblock%}
+<title>Fsbmcours |PHYSQUE</title>
+<link href="{%static 'front/css/ArticleDetail.css'%}" rel="stylesheet">
+
+{%endblock%}
+{%block navbar%}
+
+{% endblock %}
+{%block containerblock%}
+<div class="container">
+    <div class="row" style="margin-top: 27px !important;">
+        <div class="col-lg-8">
+            {% for fil in Filier%}
+           
+            <div class="blog-left-sidebar">
+                <div class="row justify-content-sm-center">
+                    <div class="col-lg section-title">
+                        <span class="sub-title mb-2 d-block" style="font-size: 20px;">Departement {{fil.name}}</span>
+                        <h2 class="title text-primary  text-uppercase" style="margin-bottom: 2px;">{{fil.title}}</h2>
+                    </div>
+                    <div class="col-xl-12">
+                        <div class="row justify-content-sm-center">
+                            {% for i in physique %}
+                                {% if fil.name == i.filier %}
+                                <div class="col-md-6 col-lg-6 mb-4 mb-lg-4">
+                                    <a href="/Physique/{{i.semmester}}{% if i.name != 'none'%}-{{i.name}}{%endif%}">
+                                    <div class="service h-100">
+                                        <h3>{{i.name}}</h3>
+                                        <p >{{i.filier}}
+
+                                        </p>
+                                    </div>     
+                                    </a>
+                                </div>  
+                                {% endif %}
+                           {% endfor%} 
+                        </div>
+                    </div>
+                 <div class="col-xl-12">
+                     <section class="">
+                         <div class="container">
+                             <div class="row">
+                                {% for book in books%}
+                                    {% if book.filier == "Physique"%}
+                                    <!-- course item -->
+				                    <div class="col-lg-4 col-md-6 course-item">
+					                    <div class="course-thumb">
+						                    <img src="{{book.picurl}}" alt="">
+						                    <div class="course-cat">
+							                    <span><a href="" target="_blank" rel="noopener noreferrer">Telecharger</a></span>
+						                    </div>
+					                    </div>
+					                    <div class="course-info">
+						                    <div class="date"> {{book.name}}</div>
+					                    </div>
+                                    </div>{%endif%}
+                                {%endfor%}
+                             </div>
+                         </div>
+                     </section>
+                 </div>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+  
+       <!-- sidebar -->
+                  <div class="col-sm-8 col-md-5 col-lg-4 col-xl-3 offset-xl-1 offset-0 pl-xl-0  ">
+            <div class="sidebar jm-sticky-top">
+                  <!-- widget -->
+                      <div class="widget">
+                          <form class="search-widget">
+                              <input type="text" placeholder="Search...">
+                              <button><i class="fa fa-search"></i></button>
+                          </form>
+                            </div>
+              <!-- Recent COURE && Traveux Dirigés && Traveux Pratique -->
+            
+                      <div class="widget">
+                          <h5 class="widget-title">Recent COURE && Traveux Dirigés && Traveux Pratique</h5>
+                         <div class="recent-post-widget">
+                <!-- recent post -->
+                        {%for popModl in Semmesterpop%}
+                          <a href=>
+                            <div class="rp-item">
+                              <div class="rp-thumb ">
+                                  <img src="{% static 'front/img/smp.png'%}" alt="" class="img-fluid">
+                              </div>
+                                <div class="rp-content">
+                                  <h6>{{popModl.semmester}}
+                                    [<small>{{popModl.filier}}
+                                      {% if popModl.name != "none"%}| {{popModl.name}}{%endif%}
+                                    </small>]
+                                  </h6>
+                                  <p><i class="fa fa-clock-o"></i>{{popModl.date}}, {{popModl.time}}</p>
+                              </div>
+                            </div>
+                          </a>
+                        {%endfor%}
+                          </div>
+                      </div>
+                      <!-- Add -->
+                      <div class="widget">
+                          <img src="img/ad.jpg" alt="">
+                      </div>
+            </div>
+                  </div>
+    </div>
+
+    </div>
+{%endblock%}

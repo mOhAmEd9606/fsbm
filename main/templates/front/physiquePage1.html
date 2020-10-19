@@ -1,0 +1,118 @@
+{% extends 'front/base.html'%}{% load static %}  {% load humanize %} {%block titleblock%}
+<title>Fsbmcours |Physique </title>
+<link href="{%static 'front/css/ArticleDetail.css'%}" rel="stylesheet">
+{%endblock%}
+{%block navbar%}
+  
+{%endblock%}
+ {%block containerblock%}
+ 
+	
+    <div class="container-fluid">
+        <!-- Breadcrumb section -->
+        <div class="site-breadcrumb" style="margin-top: 40px;margin-bottom:5px;">
+            <div class="container">
+                <a href="{% url 'home'%}"><i class="fa fa-home"></i> Home</a> <i class="fa fa-angle-right"></i>
+                <a href="/"> Physique</a> <i class="fa fa-angle-right"></i>
+            </div>
+        </div>
+        <!-- Breadcrumb section end -->
+        <div class="row" style="margin-top: 1px !important;">
+            <div class="col-lg-8">
+                <div class="blog-left-sidebar">
+                    <div class="row justify-content-sm-center" style="margin-bottom: 1px;">
+                        {% for filier in Filiers %}
+                        
+                      <div class="col-xl-12" style="margin-bottom: 1px; margin-top: 2px !important;">
+                        {% for semmester in Semmesters %}
+                    <div class="col-md-6 col-lg-6 mb-4 mb-lg-4" style="margin-bottom: 9px !important;">
+                        <a href="{% url 'physiqueSemmester' sem=semmester.nameUrl  pk=semmester.id %}">
+                            <div class="service h-100">
+                                <h3>{{semmester.purname}}</h3>
+                                <p>{{semmester.filier}}</p>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                      </div>
+                      {%endfor%}
+                    </div>
+                    <!-- {% for filier in Filiers %}
+                <div class="row justify-content-sm-center" style=" margin: 2px !important;">
+
+                     <div class="col-lg-12 section-title" style="margin-bottom: 2px;">
+                        <span class="sub-title  d-block" style="margin-bottom: 0px;">Departement {{filier.name}}</span>
+                        <h2 class="title text-primary  text-uppercase" style="margin-bottom: 2px; margin-top: 0px;">{{filier.title}}</h2>
+                    </div>
+                    {% for semmester in Semmesters %}
+                    <div class="col-md-6 col-lg-6 mb-4 mb-lg-4" style="margin-bottom: 9px !important;">
+                        <a href="{% url 'physiqueSemmester' sem=semmester.nameUrl  pk=semmester.id %}">
+                            <div class="service h-100">
+                                <h3>{{semmester.purname}}</h3>
+                                <p>{{semmester.filier}}</p>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %} -->
+                </div>
+            </div>
+      
+           <!-- sidebar -->
+                      <div class="col-sm-8 col-md-5 col-lg-4 col-xl-3 offset-xl-1 offset-0 pl-xl-0  ">
+                <div class="sidebar jm-sticky-top">
+                    {% include 'front/search.html'%}
+                          <!-- Recent News -->
+                          <div class="widget">
+                            <h5 class="widget-title">Recent </h5>
+                            {%for popModl in lastCours%}
+                            <div class="recent-post-widget">
+                                <!-- recent post -->
+        
+                                <div class="rp-item">
+                                    <div class="rp-thumb ">
+                                        {%if popModl.filier == 'Physique'%}
+                                        <img src="{% static 'front/img/smp.png'%}" alt="" class="img-fluid"> {%elif popModl.filier == 'Chimie'%}
+                                        <img src="{% static 'front/img/smc.png'%}" alt="" class="img-fluid"> {%endif%}
+                                    </div>
+                                    <div class="rp-content">
+                                        <h6><a href="{% url 'physiqueSemmester' popModl.semmesterUrl popModl.id  %}">{{popModl.name}}</a> <br>
+                                            <smail style="color:red;">{{popModl.semmester}}</small>
+                                        </h6>
+                                        <p><i class="fa fa-eye"></i> {{ popModl.show}} Views</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endfor%}
+                        </div>
+                          <!-- Tags -->
+                          <div class="widget">
+                              <h4 class="widget-title">Tags</h4>
+                              <div class="tags">
+                                  <a href="#">DEVELOPMENT</a>
+                                  <a href="#">BUSINESS</a>
+                                  <a href="#">PROJECTS</a>
+                                  <a href="#">GOOGLE ADWORDS</a>
+                                  <a href="#">SQL DATABASE</a>
+                                  <a href="#">MARKETING</a>
+                                  <a href="#">DESIGN</a>
+                              </div>
+                          </div>
+                      
+                          <!-- Add -->
+                          <div class="widget">
+                              <img src="img/ad.jpg" alt="">
+                          </div>
+                </div>
+                      </div>
+        </div>
+        </div>
+ {%endblock%}
+ {%block script%}
+<script>
+    var id='#short'
+  const trunc = document.querySelector(id);
+  trunc.innerText = trunc.innerText.substring(0,120) + '...';
+</script>
+{%endblock%}

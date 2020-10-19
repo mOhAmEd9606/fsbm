@@ -1,0 +1,48 @@
+{% extends 'back/master.html' %}
+{% load static %}
+{%block head%}<title>Edit filier |fsbmAdmin</title>{% endblock%}
+{%block container%}
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Edit filier</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <form action="{% url 'filierEdit' name=name%}" method="post" enctype="multipart/form-data" >
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="inputName">Filier Name</label>
+              <input type="text" id="inputName" name="inputName" value="{{Filier.name}}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="inputTitle">Title</label>
+                <input type="text" id="inputTitle" name="inputTitle" value="{{Filier.title}}" class="form-control">
+              </div>
+              
+            <div class="form-group">
+              <label for="inputimage">Image</label>
+             <div class="row">
+              <div class="col-6">
+                <input type="file" id="inputimage" name="inputimage" class="form-control">
+               </div>
+               <div class="col-6">
+                 <img src="{{Filier.picurl}}" style="max-width: 120px;
+                 max-height: 123px;" alt="">
+               </div>
+             </div>
+            </div>
+           <button class="btn btn-success " type="submit">Cree</button>
+          </form>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col -->
+  </div>
+{%endblock%}
+{%block script%}
+
+{%endblock%}

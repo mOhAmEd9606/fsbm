@@ -1,0 +1,149 @@
+{% extends 'front/base.html'%}{% load static %} {% load humanize %} {%block titleblock%}
+<title>Fsbmcours | Bibliotique En Ligne </title>
+<link href="{%static 'front/css/ArticleDetail.css'%}" rel="stylesheet">{%endblock%} {%block navbar%} {% endblock %} {%block intro%}
+<!--Intro Section
+     ============================-->
+
+<section class="container-sm">
+    <div id="owl-carousel-1" class="owl-carousel owl-theme center-owl-nav" style="margin-top: 77px;">
+        {% for Art in Article %}
+        <!-- ARTICLE -->
+        <article class="article thumb-article">
+            <div class="article-img">
+                <img src="{{Art.pic.url}}" alt="{Art.name}} image">
+            </div>
+            <div class="article-body">
+                <ul class="article-info">
+                    <li class="article-category"><a href="{% url 'Catpage' Art.cat %}">{{Art.cat}}</a></li>
+                    <li class="article-type"><i class="fa fa-camera"></i></li>
+                </ul>
+                <h2 class="article-title"><a href="{% url 'ArticleDetail' Art.artID %}">{{Art.name}}</a></h2>
+                <ul class="article-meta" style="text-transform: lowercase !important;">
+                    <li><i class="fa fa-clock-o"></i> {{ Art.date|timesince }} ago </li>
+                    <li><i class="fa fa-eye"></i> {{Art.show}}</li>
+                </ul>
+            </div>
+        </article>
+        <!-- /ARTICLE -->
+        {% endfor%}
+    </div>
+</section>
+<!-- #intro -->
+{%endblock%} {%block containerblock%}
+<div class="container">
+    <div class="row" style="margin-top: 0px !important;margin-bottom: 0px !important;">
+        <div class="col-lg-8">
+            <div class="blog-left-sidebar">
+                
+                <div class="row justify-content-sm-center" style="margin-top: 92px; margin-bottom: 2px;">
+
+                    {% comment %} <div class="col-lg-12 section-title" style="margin-bottom: 2px;">
+                        <span class="sub-title  d-block" style="margin-bottom: 0px;">filier</span>
+                        <h2 class="title text-primary  text-uppercase" style="margin-bottom: 2px; margin-top: 0px;">Etudiant</h2>
+                    </div> {% endcomment %}
+                    {% for filier in Filier %}
+                    <div class="col-md-6 col-lg-6 mb-4 mb-lg-4" style="margin-bottom: 9px !important;">
+                        <a href="/{{filier.name}}">
+                            <div class="service h-100">
+                                <h3>{{filier.name}}</h3>
+                                <p>{{filier.title}}</p>
+                            </div>
+                        </a>
+                    </div>
+                    {%endfor%}
+                </div>
+                {% if Article.count != 0%}
+                <div class="row justify-content-sm-center" style="margin-top: 70px !important;">
+
+                    {% comment %} <div class="col-lg-12 section-title" style="margin-bottom: 2px;">
+                        <span class="sub-title  d-block" style="margin-bottom: 8px;margin-left: 26px !important;">Populair Actualités</span>
+                    </div> {% endcomment %}
+                    {% for art in Article %}
+                    <div class="col-xl-12">
+                        <div class="blog-item">
+                            <div class="blog-thumb ">
+                                <img src="{{art.pic.url}}" alt="" class="img-fluid">
+                            </div>
+                            <div class="blog-content">
+                                <h4>
+                                    <a href="{% url 'ArticleDetail' art.artID %}" id="" target="_blank" rel="noopener noreferrer">{{art.name}}</a>
+                                </h4>
+                                <div class="blog-meta">
+                                    <span><i class="fa fa-calendar-o"></i> {{ art.date|naturaltime }} ,</span>
+                                    <span><a href="{% url 'Catpage' art.cat %}"><i class="fa fa-user"></i> {{art.cat}}</a></span>
+                                </div>
+                                <p id="p">{{art.discripton}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
+                {%endif%}
+            </div>
+        </div>
+
+
+        <!-- sidebar -->
+        <div class="col-sm-8 col-md-5 col-lg-4 col-xl-3 offset-xl-1 offset-0 pl-xl-0  ">
+            <div class="sidebar jm-sticky-top">
+                <!-- widget -->
+               
+                <div class="widget">
+                    {% include 'front/search.html'%}
+                    <h5 class="widget-title">Recent COURE && Traveux Dirigés && Traveux Pratique</h5>
+                    {%for popModl in lastCours%}
+                    <div class="recent-post-widget">
+                        <!-- recent post -->
+
+                        <div class="rp-item">
+                            <div class="rp-thumb ">
+                                {%if popModl.filier == 'Physique'%}
+                                <img src="{% static 'front/img/smp.png'%}" alt="" class="img-fluid"> {%elif popModl.filier == 'Chimie'%}
+                                <img src="{% static 'front/img/smc.png'%}" alt="" class="img-fluid"> {%endif%}
+                            </div>
+                            <div class="rp-content">
+                                <h6>{{popModl.name}} <br>
+                                    <smail style="color:red;">{{popModl.module}}</small>
+                                </h6>
+                                <p><i class="fa fa-clock-o"></i>{{popModl.date}}, {{popModl.time}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
+
+
+                <!-- Add -->
+                <div class="widget">
+                    <img src="img/ad.jpg" alt="">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Newsletter section -->
+{% include 'front/Newsletter.html'%}
+<!-- Newsletter section end -->
+{%endblock%} {%block script%}
+<script>
+    const lang = navigator.language;
+    let date = new.Date();
+
+
+    let dayNumber = date.getDate();
+    let month = date.getMonth();
+    let dayName = date.tolocaleString(lang, {
+        weekday: 'lang'
+    });
+    let monthName = date.tolocaleString(lang, {
+        month: 'lang'
+    });
+    let year = date.getFullYear();
+
+    document.getElementById('monthName').innerHTML = monthName;
+    document.getElementById('dayName').innerHTML = dayName;
+    document.getElementById('dayNamber').innerHTML = dayNumber;
+    document.getElementById('year').innerHTML = year;
+</script>
+{%endblock%}

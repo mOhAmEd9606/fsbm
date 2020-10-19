@@ -1,0 +1,29 @@
+{% extends 'back/master.html' %}
+{% load static %}
+{%block head%}<title>Delete |fsbmAdmin</title>{% endblock%}
+{%block container%}
+<br>
+<div class="row">
+    <div class="col-12">
+        <div class="callout callout-danger">
+			<h2>Are you sure you want to delete {{item}}  ?</h2>
+			<h6>
+				<small>ID : {{item.pk}}</small><br>
+				{% if item.module%}<small>Module : {{item.module}}</small><br>{% endif%}
+				{% if item.semmester%}<small>Semmester : {{item.semmester}}</small><br>{% endif%}
+			</h6>
+			<form action="{% url 'moduleeDel' item.id  %}" method="POST">
+				
+				{% csrf_token %}
+				<a class="btn btn-warning" href="{% url 'moduleList' %}">Cancel</a>
+
+				<input class="btn btn-danger" type="submit" name="Confirm">
+			</form>
+        </div>
+    </div>
+    <!-- /.col -->
+</div>
+
+
+
+{%endblock%}

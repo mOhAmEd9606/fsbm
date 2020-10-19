@@ -1,0 +1,36 @@
+{% extends 'back/master.html' %}
+{% load static %}
+{%block head%}<title>Add Semmester |fsbmAdmin</title>{% endblock%}
+{%block container%}
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Add Semmester</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <form action="{% url 'semmesterAdd'%}" method="post" enctype="multipart/form-data" >
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="inputName">semmester Name</label>
+              {{form.name}}
+            </div>
+            <div class="form-group">
+                <label for="inputfilierId">filier</label>
+                {{form.filier}}
+              </div>
+            
+           <button class="btn btn-success " type="submit">Cree</button>
+          </form>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col -->
+  </div>
+{%endblock%}
+{%block script%}
+
+{%endblock%}

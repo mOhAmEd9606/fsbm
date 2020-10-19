@@ -1,0 +1,280 @@
+{% extends 'front/base.html'%}{% load static %} {%block titleblock%}
+{% for e in Module %}
+<title>Fsbmcours |{{e.name}} </title>
+{%endfor%}
+<link href="{%static 'front/css/ArticleDetail.css'%}" rel="stylesheet">
+
+{%endblock%}
+{%block navbar%}
+
+{% endblock %}
+{%block containerblock %}
+<div class="container">
+   
+    <div class="row" style="margin-top: 27px !important;">
+        <div class="col-lg-8">
+            {%for modl in Module%}
+            <div class="blog-left-sidebar">
+                <div class="row justify-content-sm-center">
+                   
+                  <div class="col-lg section-title">
+                    <span class="sub-title mb-2 d-block" style="font-size: 20px;">Departement {{modl.filier}}</span>
+                    <h2 class="title text-primary  text-uppercase" style="margin-bottom: 2px;">{{modl.name}}</h2>
+                  </div>
+                 <div class="col-xl-12">
+                    {% if modl.ccount == 0 and modl.Tdcount == 0  and modl.tpcount == 0 and modl.ecount == 0%}
+                    <div class="alert alert-info alert-dismissible">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      <h5><i class="icon fas fa-info"></i>  Hi {{modl.name}} has No data available,!</h5>
+                      Coming Son ,
+                      Merci Pour Votre Visite 
+                    </div>
+                    {%endif%}
+                 </div>
+                  {% if modl.ccount != 0%}
+                  <div class="col-sm-12">
+                    <div class="table-responsive-xl">
+                        <h3 class="sub-title text-uppercase">Coure </h3>
+                        <table class="table">
+                            <caption>List of Coure [{{modl.name}}]</caption>
+                            <thead>
+                              <tr>
+                                <th scope="col">Name</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {%for co in Cours %}
+                              <tr>
+                                <th scope="row">
+                                  <a href="{{co.pdf.url}}" target="_blank"> {{co.name}}</a>
+                                </th>
+                              </tr>{%endfor%}
+                            </tbody>
+                          </table>
+                      </div>
+                  </div>{%endif%}
+                  {% if modl.Tdcount != 0%}
+                  <div class="col-sm-12">
+                    <div class="table-responsive-xl">
+                        <h3 class="sub-title text-uppercase">Traveux Diriges </h3>
+                        <table class="table">
+                            <caption>List of Traveux Diriges [{{modl.name}}]</caption>
+                            <thead>
+                              <tr>
+                                <th scope="col">Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for td in TraveuxDiriges%}
+                              <tr>
+                                <th scope="row">
+                                   
+                                  <a href="{{td.pdf.url}}" target="_blank"> {{td.name}}</a>
+                                </th>
+                              </tr>{%endfor%}
+                            </tbody>
+                          </table>
+                      </div>
+                  </div>
+                  {%endif%}
+                  {% if modl.tpcount != 0%}
+                  <div class="col-sm-12">
+                    <div class="table-responsive-xl">
+                        <h3 class="sub-title text-uppercase">Traveux Pratique </h3>
+                        <table class="table">
+                            <caption>List of Traveux Pratique [{{modl.name}}]</caption>
+                            <thead>
+                              <tr>
+                                <th scope="col">Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for tp in TraveuxPratique%}
+                              <tr>
+                                <th scope="row">
+                                   
+                                  <a href="{{tp.pdf.url}}" target="_blank"> {{tp.name}}</a>
+                                </th>
+                              </tr>{%endfor%}
+                            </tbody>
+                          </table>
+                      </div>
+                  </div>
+                  {%endif%}
+                  {% if modl.ecount != 0%}
+                  <div class="col-sm-12">
+                    <div class="table-responsive-xl">
+                        <h3 class="sub-title text-uppercase">Exams </h3>
+                        <table class="table">
+                            <caption>List of Exams [{{modl.name}}]</caption>
+                            <thead>
+                              <tr>
+                                <th scope="col">Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for exam in Exams%}
+                              <tr>
+                                <th scope="row">
+                                   
+                                  <a href="{{exam.pdf.url}}" target="_blank"> {{exam.name}}</a>
+                                </th>
+                              </tr>{%endfor%}
+                            </tbody>
+                          </table>
+                      </div>
+                  </div>
+                  {%endif%}
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+  
+       <!-- sidebar -->
+                  <div class="col-sm-8 col-md-5 col-lg-4 col-xl-3 offset-xl-1 offset-0 pl-xl-0  ">
+            <div class="sidebar jm-sticky-top">
+                  <!-- widget -->
+                    {% include 'front/search.html'%}
+              <!-- Recent COURE && Traveux Dirigés && Traveux Pratique -->
+              {%for popModl in Module%}
+              
+                      <div class="widget">
+                          <h5 class="widget-title">Recent Add</h5>
+                         <div class="recent-post-widget">
+                <!-- recent post -->
+                          {%if popModl.ccount != 0%}
+                            {% for LastCo in PopCours%}
+                              <a href="{% url 'physiqueModulePage' sem=LastCo.semmesterUrl  modl=LastCo.moduleUrl %}" target="_blank" rel="noopener noreferrer">
+                                <div class="rp-item">
+                                  <div class="rp-thumb ">
+                                      {%if LastCo.filier == 'Physique'%}
+                                          <img src="{% static 'front/img/smp.png'%}" alt="" class="img-fluid">
+                                      {%elif LastCo.filier == 'Chimie'%}
+                                          <img src="{% static 'front/img/smc.png'%}" alt="" class="img-fluid">
+                                      {%endif%}
+                                  </div>
+                                  <div class="rp-content">
+                                        <h6>{{LastCo.name}}</h6>
+                                        <p>{{LastCo.module}}</p>
+                                  </div>
+                                </div>
+                              </a>
+                            {%endfor%}{%endif%}
+                <!-- recent post -->
+                {%if popModl.Tdcount != 0%}
+                  {% for LastCo in TraveuxDirigesLastAdd%}
+                    <a href="{% url 'physiqueModulePage' sem=LastCo.semmesterUrl  modl=LastCo.moduleUrl %}" target="_blank" rel="noopener noreferrer">
+                      <div class="rp-item">
+                        <div class="rp-thumb ">
+                            {%if LastCo.filier == 'Physique'%}
+                                <img src="{% static 'front/img/smp.png'%}" alt="" class="img-fluid">
+                            {%elif LastCo.filier == 'Chimie'%}
+                                <img src="{% static 'front/img/smc.png'%}" alt="" class="img-fluid">
+                            {%endif%}
+                        </div>
+                        <div class="rp-content">
+                          <h6>{{LastCo.name}}</h6>
+                          <p>{{LastCo.module}}</p>                         
+                        </div>
+                      </div>
+                    </a>
+                  {%endfor%}
+                {%endif%}
+                          </div>
+                      </div>{%endfor%}
+                      <!-- Add
+                      <div class="widget">
+                          <img src="img/ad.jpg" alt="">
+                      </div> -->
+            </div>
+                  </div>
+    </div>
+
+    </div>
+{%endblock%}
+
+
+
+   
+<!---->
+<!--Cours-->
+<div class="row mb-5">
+	<div class="col-lg-6 section-title">
+		<h2 class="title text-primary">Cours</h2>
+	</div>
+</div>
+ <div class="col px-2 justify-content-sm-center">      
+    <div id="Informatique" style="margin-top: 50px;">
+        <table class="table">
+            <thead>
+             
+             <tr>
+                 <th scope="col">name</th>
+                 
+                 <th scope="col">Module</th>
+                 <th scope="col">date</th>
+                 
+
+             </tr>
+                    </thead>
+                    
+                 {%for c in Cours2%}
+                    <tbody>
+                        <tr>
+                            <th scope="row">
+                                <a href="{{c.file}}" target="_blank">{{c.name}}</a>
+                            </th>
+                            
+                            <td >{{c.module}} </td>
+                            <td>{{c.time}}   {{c.date}}</td>
+                            
+                            </tr>
+                     </tbody>
+                {%endfor%}
+                
+        </table>
+    </div>
+</div>
+
+<!--____->
+<!td___-->
+
+<div class="row mb-5">
+	<div class="col-lg-6 section-title">
+		<h2 class="title text-primary">Traveux Dirigés</h2>
+	</div>
+</div>
+
+ <div class="col">      
+    <div id="Informatique" style="margin-top: 50px;">
+        <table class="table">
+            <thead>
+             
+             <tr>
+                 <th scope="col">name</th>
+                 <th scope="col">Module</th>
+                 <th scope="col">date</th>
+                
+
+             </tr>
+                    </thead>
+                    {%for c in Td2%}
+                    <tbody>
+                        <tr>
+                            <th scope="row">
+                                <a href="{{c.file}}" target="_blank">{{c.name}}</a>
+                            </th>
+                            
+                            <td >{{c.module}} </td>
+                            <td>{{c.time}}   {{c.date}}</td>
+                            
+                        </tr>
+                     </tbody>
+                {%endfor%}
+                 
+                
+        </table>
+    </div>
+</div>
+
+<!---->

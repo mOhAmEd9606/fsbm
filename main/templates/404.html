@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="utf-8"> 
+   <title>404 Page Not Found </title>
+   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+   <meta content="" name="keywords">
+   <meta content="" name="description">
+
+   <!-- Favicons -->
+   <link href="{%static 'front/img/favicon.ico' %}" rel="icon">
+   <link href="{%static 'front/img/logo.png'%}" rel="logo">
+
+   <!-- Google Fonts -->
+   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,600,700,700i|Montserrat:300,400,500,600,700" rel="stylesheet">
+
+   <!-- Bootstrap CSS File -->
+   <link href="{%static 'front/lib/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+
+   <!-- Libraries CSS Files -->
+   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+   <link rel="stylesheet" href="{% static 'back/plugins/fontawesome-free/css/all.min.css'%}">
+
+   <link href="{%static 'front/lib/font-awesome/css/font-awesome.min.css'%}" rel="stylesheet">
+   <link href="{%static 'front/lib/animate/animate.min.css'%}" rel="stylesheet">
+   <link href="{%static 'front/lib/ionicons/css/ionicons.min.css'%}" rel="stylesheet">
+   <link href="{%static 'front/lib/owlcarousel/assets/owl.carousel.min.css'%}" rel="stylesheet">
+   <link href="{%static 'front/lib/lightbox/css/lightbox.min.css'%}" rel="stylesheet">
+
+   <!-- Main Stylesheet File -->
+   <link href="{%static 'front/css/style.css'%}" rel="stylesheet">
+   <link href="{%static 'front/css/slide_Intro/style.css'%}" rel="stylesheet">
+   <link href="{%static 'front/css/article.css'%}" rel="stylesheet">
+   <link href="{%static 'front/css/slide_Intro/owl-carousel.css'%}" rel="stylesheet">
+   <link href="{%static 'front/css/slide_Intro/owl-theme.default.css'%}" rel="stylesheet">
+   <style>
+    @import url('https://fonts.googleapis.com/css?family=Roboto+Mono:300,500');
+
+
+    body {
+       
+        font-family: "Roboto Mono", "Liberation Mono", Consolas, monospace;
+        color: rgba(5, 5, 5, 0.87);
+    }
+
+    .mx-auto {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .container,
+    .container > .row,
+    .container > .row > div {
+        height: 100%;
+    }
+
+    #countUp {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        
+        .number {
+            font-size: 4rem;
+            font-weight: 500;
+            
+            + .text {
+                margin: 0 0 1rem;
+            }
+        }
+        
+        .text {
+            font-weight: 300;
+            text-align: center;
+        }
+    }
+
+   </style>
+</head>
+
+<body>
+   <!-- ======= Header ======= -->
+   <header id="header" class="fixed-top">
+       <div class="container">
+
+           <div class="logo float-left">
+               <!-- Uncomment below if you prefer to use an text logo -->
+               <h1 class="text-light"><a href="/" class="scrollto"><span>FSBMCOURS</span></a></h1>
+               <!--<a href="#intro" class="scrollto"><img src="assets/img/lhogo.png" alt="" class="img-fluid"></a>-->
+           </div>
+
+
+       </div>
+   </header>
+   <!-- #header -->
+   <main id="main">
+<br><br><br><br><br><br><br>
+     <div class="d-flex justify-content-center">
+        <div class="row">
+            <div class="xs-12 md-6 mx-auto">
+                <div id="countUp">
+                    <div class="number" >Error 404</div>
+                    <div class="text">Page not found</div>
+                    <button type="submit">back</button>
+                </div>
+            </div>
+        </div>
+     </div>
+
+   </main>
+   <!--Footer-->
+
+   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+   <!-- Uncomment below i you want to use a preloader -->
+   <div id="preloader"></div>
+
+   <!-- JavaScript Libraries -->
+   <script src="{%static 'front/lib/jquery/jquery.min.js'%}"></script>
+   <script src="{%static 'front/lib/jquery/jquery-migrate.min.js'%}"></script>
+   <script src="{%static 'front/lib/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+   <script src="{%static 'front/lib/easing/easing.min.js'%}"></script>
+   <script src="{%static 'front/lib/mobile-nav/mobile-nav.js'%}"></script>
+   <script src="{%static 'front/lib/wow/wow.min.js'%}"></script>
+   <script src="{%static 'front/lib/waypoints/waypoints.min.js'%}"></script>
+   <script src="{%static 'front/lib/counterup/counterup.min.js'%}"></script>
+   <script src="{%static 'front/lib/owlcarousel/owl.carousel.min.js'%}"></script>
+   <script src="{%static 'front/lib/isotope/isotope.pkgd.min.js'%}"></script>
+   <script src="{%static 'front/lib/lightbox/js/lightbox.min.js'%}"></script>
+   <!-- Contact Form JavaScript File -->
+   <script src="{%static 'front/contactform/contactform.js'%}"></script>
+
+   <!-- Template Main Javascript File -->
+   <script src="{%static 'front/js/main.js'%}"></script>
+   <script src="{%static 'front/js/intro_slide/main.js'%}"></script>
+   {%block script%}{%endblock%}
+
+
+</body>
+
+</html>

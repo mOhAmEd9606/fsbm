@@ -1,0 +1,8 @@
+<br><br>
+<div class="widget" >
+    <form class="search-widget" action="{% url 'Search_MOdule'  %}" method="post" enctype="multipart/form-data" onsubmit=" return true;">
+    {% csrf_token %}
+        <input type="text" id="search" name="search" placeholder="Search...">
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+</div>

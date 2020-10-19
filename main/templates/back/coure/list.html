@@ -1,0 +1,109 @@
+{% extends 'back/master.html' %}
+{% load static %}
+{%block head%}<title> coure| fsbmAdmin</title>{% endblock%}
+{%block container%}
+{% for message in messages %}
+<div class="row">
+  <div class="col-12">
+    <br>
+    {% if message.tags == "success"%}
+    <div class="alert alert-{{message.tags }} alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {%endif%}
+    {% if message.tags == "error"%}
+    <div class="alert alert-{{message.tags }} alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {%endif%}
+    {% if message.tags == "warning"%}
+    <div class="alert alert-{{message.tags }} alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {%endif%}
+    {% if message.tags == "info"%}
+    <div class="alert alert-{{message.tags }} alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {%endif%}
+   
+  </div>
+  <!-- /.col -->
+</div>
+{%endfor%}
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">coure List</h3>
+        <div class="card-tools text-right">
+          <button type="button" class="btn btn-warning btn-sm" >
+            <a href="/Panel/coure:add/"><i class="fas fa-plus"></i> Add</a>
+          </button>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th>name</th>
+            <th>Module</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+         {% for f in Coures %}
+          <tr>
+           
+            <td class="text-center">{{f.name}}</td>
+            <td class="text-center">{{f.module}} |{{f.filier}} |{{f.semmester}}</td>
+            <td class="project-actions text-center ">
+              <a class="btn btn-danger btn-sm" href="{% url 'coureDel' f.id %}">
+                  <i class="fas fa-trash">
+                  </i>
+              </a>
+              
+          </td>
+          </tr>
+          {% endfor %}
+          </tbody>
+         
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+  <!-- /.col -->
+</div>
+
+
+{%endblock%}
+{%block script%}
+
+{%endblock%}
+
+
+
+<tfoot>
+  <tr>
+    <th>Rendering engine</th>
+    <th>Browser</th>
+    <th>Platform(s)</th>
+    <th>Engine version</th>
+    <th>CSS grade</th>
+  </tr>
+  </tfoot>

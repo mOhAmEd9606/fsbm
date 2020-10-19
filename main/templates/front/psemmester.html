@@ -1,0 +1,172 @@
+{% extends 'front/base.html'%}{% load static %}  {% load humanize %} {%block titleblock%}
+<title>Fsbmcours |{{semmestername}} </title>
+<link href="{%static 'front/css/ArticleDetail.css'%}" rel="stylesheet">
+<style>
+    .section-header h3 {
+    font-size: 36px;
+    color: #413e66;
+    text-align: center;
+    font-weight: 700;
+    position: relative;
+    font-family: "Montserrat", sans-serif;
+}
+
+.section-header p {
+    margin: auto;
+    padding-bottom: 60px;
+    text-transform: uppercase;
+}
+.section-header p strong {
+    margin: auto;
+    font-size: 20px;
+    color: #1b1096;
+    padding-bottom: 60px;
+    width: 50%;
+}
+.box {
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 60% 72% 83% 88% / 57% 34% 56% 49%;
+    margin: 0 10px 40px 10px;
+    background: rgb(255, 255, 255);
+    box-shadow: 0 10px 40px 10px  rgba(7, 11, 22, 0.1);
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+}
+
+.box:hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.icon i {
+    font-size: 36px;
+    line-height: 1;
+}
+
+.title {
+    font-weight: 700;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.title a {
+    color: #111;
+}
+
+.box:hover .title a {
+    color: #1bb1dc;
+}
+
+</style>
+{%endblock%}
+{%block navbar%}
+{%endblock%}
+ {%block containerblock%}
+ 
+	
+    <div class="container">
+     
+        <div class="row" style="margin-top: 1px !important;">
+            {% for filier in Filier %}
+            <div class="col-lg-8">
+                <div class="blog-left-sidebar">
+                      <!-- Breadcrumb section -->
+       <div class="site-breadcrumb" style="margin-top: 40px;">
+        <div class="container">
+            <a href="{% url 'home'%}"><i class="fa fa-home"></i> Home</a> <i class="fa fa-angle-right"></i>
+            <a href="/"> Physique</a> <i class="fa fa-angle-right"></i>
+            <a href="/"> {{semmestername}}</a> <i class="fa fa-angle-right"></i>
+        </div>
+    </div>
+    <div class="col-xl-12">
+      {% if filier.count == 0 and filier.countTd == 0%}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>HI!</strong> {{filier.name}} has No data available <br>
+            Coming Son <br>
+          Merci Pour Votre Visite
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {%endif%}
+</div>
+    <!-- Breadcrumb section end -->
+                    <header class="section-header">
+                      
+                      <h3><small>{{semmester}}</small></h3>
+                      <h3>{{filier.title}}</h3>
+                    </header>
+                    <div class="row justify-content-center">
+                      {% for i in Modules %}
+
+                      <div class="col-md-6 col-lg-6 mb-4 mb-lg-4">
+                          <a href="{% url 'physiqueModulePage' sem=i.semmesterUrl  modl=i.nameUrl %}">
+                          <div class="service h-100">
+                              <h3>{{i.name}}</h3>
+                              <p >{{i.filier}}</p>
+                          </div>
+                          </a>
+                      </div>
+                 {% endfor%}
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+           <!-- sidebar -->
+                      <div class="col-sm-8 col-md-5 col-lg-4 col-xl-3 offset-xl-1 offset-0 pl-xl-0  ">
+                <div class="sidebar jm-sticky-top">
+                          <!-- Recent News -->
+                          <div class="widget">
+                            <h5 class="widget-title">Pop Module</h5>
+                            {%for popModl in ModulePop%}
+                            {% if popModl.filier == "Physique"%}
+                                    {% if popModl.show != 0%}
+                            <div class="recent-post-widget">
+                                <!-- recent post -->
+        
+                                <div class="rp-item">
+                                    <div class="rp-thumb ">
+                                        {%if popModl.filier == 'Physique'%}
+                                        <img src="{% static 'front/img/smp.png'%}" alt="" class="img-fluid"> {%elif popModl.filier == 'Chimie'%}
+                                        <img src="{% static 'front/img/smc.png'%}" alt="" class="img-fluid"> {%endif%}
+                                    </div>
+                                    <div class="rp-content">
+                                        <h6>{{popModl.name}} <br>
+                                            <smail style="color:red;">
+                                              <i class="fa fa-eye"></i> {{ popModl.show}} Views 
+                                            </small>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+                            {%endif%}
+                            {%endfor%}
+                        </div>
+                          <!-- Tags -->
+                          <div class="widget">
+                              <h4 class="widget-title">Tags</h4>
+                              <div class="tags">
+                                  <!-- <a href="#">DEVELOPMENT</a> -->
+                              </div>
+                          </div>
+                      
+                          <!-- Add -->
+                          <div class="widget">
+                              <img src="img/ad.jpg" alt="">
+                          </div>
+                </div>
+                      </div>
+        </div>
+        </div>
+ {%endblock%}
+ {%block script%}
+<script>
+    var id='#short'
+  const trunc = document.querySelector(id);
+  trunc.innerText = trunc.innerText.substring(0,120) + '...';
+</script>
+{%endblock%}

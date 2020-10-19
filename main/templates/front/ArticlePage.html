@@ -1,0 +1,92 @@
+{% extends 'front/base.html'%}{% load static %}  {% load humanize %} {%block titleblock%}
+<title>Fsbmcours |Actualités</title>
+<link href="{%static 'front/css/ArticleDetail.css'%}" rel="stylesheet">
+{%endblock%}
+{%block navbar%}
+  
+{%endblock%}
+ {%block containerblock%}
+ 
+	<!-- Breadcrumb section -->
+	<div class="site-breadcrumb" style="margin-top: 40px;">
+		<div class="container">
+      <a href="/"><i class="fa fa-home"></i> Home</a> <i class="fa fa-angle-right"></i>Actualités 
+		</div>
+	</div>
+	<!-- Breadcrumb section end -->
+    <div class="container-fluid">
+        <div class="row" style="margin-top: 1px !important;">
+            <div class="col-lg-8">
+                <div class="blog-left-sidebar">
+                    <div class="row justify-content-sm-center" style="margin-bottom: 1px;">
+                      {%for art in articles %}
+                      <div class="col-xl-12" style="margin-bottom: 1px; margin-top: 2px !important;">
+                        <div class="blog-item">
+                          <div class="blog-thumb " >
+                            <img src="{{art.pic.url}}" alt="" class="img-fluid">
+                          </div>
+                          <div class="blog-content">
+                            <h4>
+                              <a href="{% url 'ArticleDetail' art.artID %}" id="" target="_blank" rel="noopener noreferrer">{{art.name}}</a>
+                            </h4>
+                            <p>{{art.discripton}}</p>
+                            <div class="blog-meta">
+                              <span><i class="fa fa-calendar-o"></i> {{ art.date|naturaltime }}</span>
+                              <span><i class="fa fa-tag"></i><a href="{% url 'Catpage' art.cat %}">{{art.cat}}</a></span>
+                              <!-- <span><i class="fa fa-user"></i> <a href="">{{art.writer}}</a></span> -->
+                            </div>
+                            <p id="p">{{art.description}}</p>
+                          </div>
+                        </div>
+                      </div>
+                      {%endfor%}
+                    </div>
+                </div>
+            </div>
+      
+           <!-- sidebar -->
+                      <div class="col-sm-8 col-md-5 col-lg-4 col-xl-3 offset-xl-1 offset-0 pl-xl-0  ">
+                <div class="sidebar jm-sticky-top">
+                      <!-- widget -->
+                          <div class="widget">
+                              <form class="search-widget">
+                                  <input type="text" placeholder="Search...">
+                                  <button><i class="ti-search"></i></button>
+                              </form>
+                </div>
+   
+                          <!-- Recent News -->
+                          <div class="widget">
+                              <h5 class="widget-title">Recent News</h5>
+                              <div class="recent-post-widget">
+                    <!-- recent post -->
+                    {% for popArt in ArticlePop%}
+                                  <div class="rp-item">
+                                      <div class="rp-thumb ">
+                        <img src="{{popArt.pic.url}}" alt="" class="img-fluid">
+                      </div>
+                                      <div class="rp-content">
+                                          <h6>{{popArt.name}}</h6>
+                                          <p><i class="fa fa-clock-o"></i> {{popArt.date|naturaltime }}, {{ popArt.show}} Views</p>
+                                      </div>
+                    </div>
+                    {%endfor%}
+                              </div>
+                          </div>
+                         
+                          <!-- Add -->
+                          <div class="widget">
+                              <img src="img/ad.jpg" alt="">
+                          </div>
+                </div>
+                      </div>
+        </div>
+        </div>
+ {%endblock%}
+ {%block script%}
+<script>
+    var id='#short'
+  const trunc = document.querySelector(id);
+  trunc.innerText = trunc.innerText.substring(0,120) + '...';
+</script>
+{%endblock%}

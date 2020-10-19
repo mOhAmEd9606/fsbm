@@ -1,0 +1,125 @@
+{% extends 'back/master.html' %}
+{% load static %}
+{%block head%}<title> Module | fsbmAdmin</title>{% endblock%}
+{%block container%}
+<!--Message-->
+{% for message in messages %}
+<div class="row">
+  <div class="col-12">
+    <br>
+    {% if message.tags == "success"%}
+    <div class="alert alert-{{message.tags }} alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {%endif%}
+    {% if message.tags == "error"%}
+    <div class="alert alert-{{message.tags }} alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {%endif%}
+    {% if message.tags == "warning"%}
+    <div class="alert alert-{{message.tags }} alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {%endif%}
+    {% if message.tags == "info"%}
+    <div class="alert alert-{{message.tags }} alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {%endif%}
+   
+  </div>
+  <!-- /.col -->
+</div>
+{%endfor%}
+    <!--/message-->
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Module List</h3>
+        <div class="card-tools text-right">
+          <button type="button" class="btn btn-warning btn-sm" >
+            <a href="/Panel/module:add/"><i class="fas fa-plus"></i> Add</a>
+          </button>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th>name</th>
+            <th>Viwes</th>
+            <th>Semmester</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+         {% for f in Modules %}
+          <tr>
+           
+            <td class="text-center">{{f.name}}</td>
+            <td class="text-center">{{f.show}}</td>
+            <td class="text-center">{{f.filier}} |{{f.semmester}}</td>
+            <td class="project-actions text-center ">
+              <a class="btn btn-info btn-sm" href="">
+                  <i class="fas fa-pencil-alt">
+                  </i>
+              </a>
+              <a class="btn btn-danger btn-sm" href="{% url 'moduleeDel' f.id%}">
+                  <i class="fas fa-trash">
+                  </i>
+              </a>
+              <a class="btn btn-info btn-sm" href="{% url 'coureAdmin' f.nameUrl f.id %}">
+                {{f.ccount}} File ,Coure
+                </i> 
+            </a>
+            <a class="btn btn-info btn-sm" href="{% url 'TdsAdmin' f.nameUrl f.id %}">
+              {{f.Tdcount}} File ,T-Diriges
+              </i>
+          </a>
+          <a class="btn btn-info btn-sm" href="{% url 'TpsAdmin' f.nameUrl f.id %}">
+            {{f.tpcount}} File ,T-Pratique
+            </i>
+        </a>
+        <a class="btn btn-info btn-sm" href="{% url 'examsAdmin' f.nameUrl f.id %}">
+          {{f.ecount}} File ,Exams
+          </i>
+      </a>
+          </td>
+          </tr>
+          {% endfor %}
+          </tbody>
+         
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+  <!-- /.col -->
+</div>
+
+
+{%endblock%}
+{%block script%}
+
+{%endblock%}
+
+
+
+
+
